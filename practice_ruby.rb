@@ -82,3 +82,19 @@ end
 def find_outlier(integers)
   integers.partition(&:odd?).find(&:one?).first
 end
+
+
+# No.4
+# Given a string, detect whether or not it is a pangram.
+# Return True if it is, False if not.
+# Ignore numbers and punctuation.
+
+# My_answer
+def panagram?(string)
+  string.chars.map(&:downcase).uniq.grep(/[A-Za-z]/).sort.eql?([*"a".."z"])
+end
+
+# Best_answer
+def panagram?(string)
+  ('a'..'z').all? { |x| string.downcase.include? (x) } 
+end
