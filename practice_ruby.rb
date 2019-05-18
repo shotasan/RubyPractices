@@ -56,3 +56,29 @@ end
 def persistence(n)
   n < 10 ? 0 : 1 + persistence(n.to_s.chars.map(&:to_i).reduce(:*))
 end
+
+
+# No.3
+# You are given an array (which will have a length of at least 3, but could be very large) containing integers.
+# The array is either entirely comprised of odd integers or entirely comprised of even integers except for a single integer N.
+# Wdrite a method that takes the array as an argument and returns this "outlier" N.
+
+# [2, 4, 0, 100, 4, 11, 2602, 36]
+# Should return: 11 (the only odd number)
+
+# [160, 3, 1719, 19, 11, 13, -21]
+# Should return: 160 (the only even number
+
+# My_answer
+def find_outlier(integers)
+  if integers.select(&:even?).count > 1
+    integers.select(&:odd?).first
+  else
+    integers.select(&:even?).first
+  end
+end
+
+# Best_answer
+def find_outlier(integers)
+  integers.partition(&:odd?).find(&:one?).first
+end
