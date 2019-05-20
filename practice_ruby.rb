@@ -127,3 +127,21 @@ end
 def digital_root(n)
   n < 10 ? n : digital_root(n / 10 + n % 10)
 end
+
+
+# No.6
+# Write a function that takes in a string of one or more words, and returns the same string,
+# but with all five or more letter words reversed (Just like the name of this Kata).
+# Strings passed in will consist of only letters and spaces. Spaces will be included only when more than one word is present.
+
+# spinWords( "Hey fellow warriors" ) => returns "Hey wollef sroirraw" 
+
+# My_answer
+def spinWords(string)
+  string.split.map{ |str| str.length >= 5 ? str.reverse : str }.join(" ")
+end
+
+# Best_answer
+def spinWords(string)
+  string.gsub(/\w{5,}/, &:reverse)
+end
