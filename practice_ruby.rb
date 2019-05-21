@@ -145,3 +145,24 @@ end
 def spinWords(string)
   string.gsub(/\w{5,}/, &:reverse)
 end
+
+
+# No.7
+# Your task is to sort a given string. Each word in the string will contain a single number.
+# This number is the position the word should have in the result.
+# Numbers can be from 1 to 9. So 1 will be the first word (not 0).
+# If the input string is empty, return an empty string.
+# The words in the input String will only contain valid consecutive numbers.
+
+# "is2 Thi1s T4est 3a"  -->  "Thi1s is2 3a T4est"
+
+# My_answer
+def order(words)
+  numbers = words.delete("^1-9").split("")
+  numbers.zip(words.split).sort.map(&:last).join(" ")
+end
+
+# Best_answer
+def order(words)
+  words.split.sort_by { |w| w.chars.min } .join(" ")
+end
