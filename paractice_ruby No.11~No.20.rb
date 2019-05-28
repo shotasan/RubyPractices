@@ -17,3 +17,28 @@ def longest_consec(strarr, k)
   return "" unless k.between?(1, strarr.length)
   strarr.each_cons(k).map(&:join).max_by(&:length) || ""
 end
+
+
+# No.12
+# Implement the function unique_in_order which takes as argument a sequence and returns a list of items without any elements with the same value next to each other and preserving the original order of elements.
+# unique_in_order('AAAABBBCCDAABBB') == ['A', 'B', 'C', 'D', 'A', 'B']
+# unique_in_order('ABBCcAD')         == ['A', 'B', 'C', 'c', 'A', 'D']
+# unique_in_order([1,2,2,3,3])       == [1,2,3]
+
+# My_answer
+def unique_in_order(iterable)
+  if iterable.class == Array
+    return iterable.uniq
+  else
+    result = []
+    iterable.chars.each do |chr|
+      result << chr if result.last != chr
+    end
+    result
+  end
+end
+
+# Best_answer
+def unique_in_order(iterable)
+  (iterable.is_a?(String) ? iterable.chars : iterable).chunk { |x| x }.map(&:first)
+end
