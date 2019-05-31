@@ -161,3 +161,28 @@ def sum_pairs(ints, s)
   end
   nil
 end
+
+
+#No.15
+# Move the first letter of each word to the end of it, then add "ay" to the end of the word.
+# Leave punctuation marks untouched.
+# pig_it('Pig latin is cool') # igPay atinlay siay oolcay
+# pig_it('Hello world !')     # elloHay orldway !
+
+# My_answer
+def pig_it text
+  add_ay(text_rotate(text))
+end
+
+def text_rotate(text)
+  text.split(" ").map{|word| word.chars.rotate.join}
+end
+
+def add_ay(array)
+  array.map{|str| /\w/.match?(str) ? str + "ay" : str}.join(" ")
+end
+
+# Best_answer
+def pig_it text
+  text.gsub(/(\w)(\w+)*/, '\2\1ay')
+end
