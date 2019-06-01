@@ -186,3 +186,34 @@ end
 def pig_it text
   text.gsub(/(\w)(\w+)*/, '\2\1ay')
 end
+
+
+# No.16
+# Write a function called that takes a string of parentheses, and determines if the order of the parentheses is valid.
+# The function should return true if the string is valid, and false if it's invalid.
+# "()"              =>  true
+# ")(()))"          =>  false
+# "("               =>  false
+# "(())((()())())"  =>  true
+
+# My_answer
+def valid_parentheses(string)
+  return true if string.empty? 
+  char = string.chars
+  if char.count("(") == char.count(")")
+    char.rindex("(") < char.rindex(")")
+  else
+    false
+  end
+end
+
+# Best_answer
+def valid_parentheses(string)
+  open = 0
+  string.chars.each do |c|
+    open += 1 if c == "("
+    open -= 1 if c == ")"
+    return false if open < 0
+  end
+  open == 0
+end
