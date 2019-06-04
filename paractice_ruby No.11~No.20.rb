@@ -217,3 +217,30 @@ def valid_parentheses(string)
   end
   open == 0
 end
+
+
+# No.17
+# We have an array of unique elements.
+# A special kind of permutation is the one that has all of its elements in a different position than the original.
+# Let's see how many of these permutations may be generated from an array of four elements.
+# We put the original array with square brackets and the wanted permutations with parentheses.
+# arr = [1, 2, 3, 4]
+#       (2, 1, 4, 3)
+#       (2, 3, 4, 1)
+#       (2, 4, 1, 3)
+#       (3, 1, 4, 2)
+#       (3, 4, 1, 2)
+#       (3, 4, 2, 1)
+#       (4, 1, 2, 3)
+#       (4, 3, 1, 2)
+#       (4, 3, 2, 1)
+#       _____________
+# A total of 9 permutations with all their elements in different positions than arr
+
+# Best_answer
+def all_permuted(array_length)
+  (2..array_length).reduce(0) do |a, i|
+    # iが奇数の場合は-1、iが偶数の場合は+1する
+    (a * i + (-1) ** i )
+  end
+end
