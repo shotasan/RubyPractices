@@ -244,3 +244,21 @@ def all_permuted(array_length)
     (a * i + (-1) ** i )
   end
 end
+
+
+# No.18
+# Complete the function scramble(str1, str2) that returns true
+# if a portion of str1 characters can be rearranged to match str2,
+# otherwise returns false.
+# scramble('rkqodlw', 'world') ==> True
+# scramble('cedewaraaossoqqyt', 'codewars') ==> True
+# scramble('katas', 'steak') ==> False
+
+# Best_answer
+def scramble(s1,s2)
+  # all?メソッドはすべての要素が真の場合にtrueを返す
+  # 正答(s2)に含まれる文字数が対象(s1)に含まれる文字数以下なら真
+  s2.chars.uniq.all? do |x|
+    s2.count(x)<=s1.count(x)
+  end
+end
