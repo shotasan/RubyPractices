@@ -262,3 +262,23 @@ def scramble(s1,s2)
     s2.count(x)<=s1.count(x)
   end
 end
+
+
+# No.19
+# Write a function that will find all the anagrams of a word from a list.
+# You will be given two inputs a word and an array with words.
+# You should return an array of all the anagrams or an empty array if there are none.
+# For example:
+# anagrams('abba', ['aabb', 'abcd', 'bbaa', 'dada']) => ['aabb', 'bbaa']
+# anagrams('racer', ['crazer', 'carer', 'racar', 'caers', 'racer']) => ['carer', 'racer']
+# anagrams('laser', ['lazing', 'lazy',  'lacer']) => []
+
+# My_answer
+def anagrams(word, words)
+  words.select{ |item| word.chars.sort == item.chars.sort }
+end
+
+# Best_answer
+def anagrams(word, words)
+  words.select { |w| w.chars.sort == word.chars.sort }
+end
