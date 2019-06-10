@@ -67,3 +67,20 @@ def find_mult_3(num)
   div3 = all.select{|l| (l%3) == 0 and !l.zero?}
   [div3.size, div3.max]
 end
+
+# No.23
+# Your goal in this kata is to implement a difference function, which subtracts one list from another and returns the result.
+# It should remove all values from list a, which are present in list b.
+# array_diff([1,2],[1]) == [2]
+# If a value is present in b, all of its occurrences must be removed from the other:
+# array_diff([1,2],[1]) == [2]
+
+# My_answer
+def array_diff(a, b)
+  a - b
+end
+
+# Best_answer
+def array_diff(a, b)
+  a - b
+end
