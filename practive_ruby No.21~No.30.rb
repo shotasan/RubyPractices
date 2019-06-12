@@ -120,3 +120,65 @@ def find_even_index(arr)
   
   -1  
 end
+
+
+# No.25
+# Requirement
+# return a string where:
+# 1) the first and last characters remain in original place for each word
+# 2) characters between the first and last characters must be sorted alphabetically
+# 3) punctuation should remain at the same place as it started, for example: shan't -> sahn't
+
+# Assumptions
+# 1) words are seperated by single spaces
+# 2) only spaces separate words, special characters do not, for example: tik-tak -> tai-ktk
+# 3) special characters do not take the position of the non special characters, for example: -dcba -> -dbca
+# 4) for this kata puctuation is limited to 4 characters: hyphen(-), apostrophe('), comma(,) and period(.) 
+# 5) ignore capitalisation
+
+# My_answer(false)
+def scramble_words(words)
+  first_word = words[0]
+  last_word = words[-1]
+  alphabetically = words[1, (words.size - 2)].chars.sort
+  alphabetically.unshift(first_word).push(last_word).join
+end
+
+Best_answer
+# 文章の場合は空欄ごとの単語に区切ってmapで回す
+def scramble_words(words)
+  byebug
+  words.split(' ').map { |word| scramble(word) }.join(' ')
+end
+
+# 真ん中の文字列を並び替えるメソッド
+def scramble(word)
+  # 記号込みの文字列
+  chars = word.chars
+  # 文字列だけを取り出す
+  letters = chars.select { |char| letter?(char) }
+  # ソート後の文字列が入る
+  scrambled_letters = scramble_letters(letters.join).chars
+  # 記号を入れ直した文字列を返す
+  # 最初の文字列を1文字ずつ文字列かどうかチェックする
+  # 文字列であれば記号を除いてソートした文字列の配列の先頭を取り出す
+  # 記号であればそのまま記号を配列に入れる
+  # 当初の文字列の文字数とソート後の文字列の文字数は記号分を除けば一致する
+  chars.map do |char|
+    letter?(char) ? scrambled_letters.shift : char
+  end
+    .join
+end
+
+# 記号を除いた文字列がwordに渡される
+def scramble_letters(word)
+  return word if word.length <= 2
+  
+  # 文字列の先頭と最後以外をsortする
+  word[0] + word[1...-1].chars.sort.join + word[-1]
+end
+
+# 引数が文字リテラルかチェックするメソッド
+def letter?(char)
+  char.match? /[a-z]/
+end
