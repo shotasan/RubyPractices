@@ -182,3 +182,80 @@ end
 def letter?(char)
   char.match? /[a-z]/
 end
+
+
+# No.26
+# Three 1's => 1000 points
+# Three 6's =>  600 points
+# Three 5's =>  500 points
+# Three 4's =>  400 points
+# Three 3's =>  300 points
+# Three 2's =>  200 points
+# One   1   =>  100 points
+# One   5   =>   50 point
+# A single die can only be counted once in each roll.
+# For example, a "5" can only count as part of a triplet (contributing to the 500 points) or as a single 50 points, but not both in the same roll.
+# Example scoring
+# Throw       Score
+# ---------   ------------------
+# 5 1 3 4 1   50 + 2 * 100 = 250
+# 1 1 1 3 1   1000 + 100 = 1100
+# 2 4 4 5 4   400 + 50 = 450
+
+# My_answer
+def score( dice )
+  @result = []
+  values = [*1..6]
+  values.each do |i|
+    if dice.count(i) >= 3
+      case i
+        when 1
+          result << 1000
+        when 2
+          result << 200
+        when 3
+          result << 300
+        when 4
+          result << 400
+        when 5
+          result << 500
+        when 6
+          result << 600
+      end
+        if (dice.count(i) - 3) > 0
+          case i
+          when 1
+            result << 100 * (dice.count(1) - 3)
+          when 5
+            result << 50 * (dice.count(5) - 3)
+          end
+        end
+    else
+      once_check(i)
+      # case i
+      # when 1
+      #   result << 100 * dice.count(1)
+      # when 5
+      #   result << 50 * dice.count(5)
+      # end
+    end
+  end
+  result.sum
+end
+
+# Best_answer
+# 取りうる値を列挙してから、出目と回数で得点を特定する。
+SCORE_MAP = {
+  1 => [0, 100, 200, 1000, 1100, 1200, 2000],
+  2 => [0, 0, 0, 200, 200, 200, 400],
+  3 => [0, 0, 0, 300, 300, 300, 600],
+  4 => [0, 0, 0, 400, 400, 400, 800],
+  5 => [0, 50, 100, 500, 550, 600, 1000],
+  6 => [0, 0, 0, 600, 600, 600, 1200]
+}
+
+def score( dice )
+  (1..6).inject(0) do |score, die|
+    score += SCORE_MAP[die][dice.count(die)]
+  end
+end
