@@ -259,3 +259,37 @@ def score( dice )
     score += SCORE_MAP[die][dice.count(die)]
   end
 end
+
+
+# No.27
+# Given an array of the weather conditions, your task is to work out the minimum number of umbrellas he needs to start with in order that he never gets wet.
+# He can start with some umbrellas at home and some at work, but the output is a single integer, the minimum total number.
+# The input is an array/list of consecutive half-day weather forecasts.
+# So, e.g. the first value is the 1st day's morning weather and the second value is the 1st day's afternoon weather.
+# The options are "clear", "sunny", "cloudy", "rainy", "windy" or "thunderstorms".
+# minUmbrellas(["rainy", "clear", "rainy", "cloudy"])
+# // should return 2
+# // Because on the first morning, he needs an umbrella to take, and he leaves it at work.
+# // So on the second morning, he needs a second umbrella.
+# minUmbrellas(["sunny", "windy", "sunny", "clear"])
+# // should return 0
+# // Because it doesn't rain at all.
+# minUmbrellas(["rainy", "rainy", "rainy", "rainy", "thunderstorms", "rainy"])
+# // should return 1
+# // Because he only needs 1 umbrella which he takes on every journey.
+
+# My_answer
+def min_umbrellas(weather)
+  indexs = []
+  result = 0
+  weather.each_with_index do |weather, ind|
+    if weather == "rainy" || weather == "thunderstorms"
+      indexs << ind
+    end
+  end
+  result += 1 unless indexs.empty?
+  indexs.each_cons(2) do |first, second|
+    result += 1 if (second - first) > 1
+  end
+  result
+end
