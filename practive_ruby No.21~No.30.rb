@@ -293,3 +293,34 @@ def min_umbrellas(weather)
   end
   result
 end
+
+
+# No.28
+# You have a positive number n consisting of digits.
+# You can do at most one operation: Choosing the index of a digit in the number,
+# remove this digit at that index and insert it back to another or at the same place in the number in order to find the smallest number you can get.
+# #Task: Return an array or a tuple or a string depending on the language (see "Sample Tests") with
+# 1) the smallest number you got
+# 2) the index i of the digit d you took, i as small as possible
+# 3) the index j (as small as possible) where you insert this digit d to have the smallest number.
+# smallest(261235) --> [126235, 2, 0] or (126235, 2, 0) or "126235, 2, 0"
+# 126235 is the smallest number gotten by taking 1 at index 2 and putting it at index 0
+
+# Best_answer
+# 取り出す数字をxとする。xを各数値の間に入れて、当初のnより小さくなった時に、xのインデックス(i1)と挿入箇所のインデックス(i2)を返す
+def smallest(n)
+  result = [n]
+  size = n.to_s.size
+  # timesを2回使う事で、取り出す数値のインデックスと、挿入箇所のインデックスを表している
+  size.times do |i1|
+    size.times do |i2|
+      digits = n.to_s
+      # str#slice(nth) => 指定した範囲 (String#[] 参照) を 文字列から取り除いたうえで取り除いた部分文字列を返します。
+      x = digits.slice!(i1)
+      # str#insert(pos, other) => pos 番目の文字の直前に文字列 other を挿入します。 self[pos, 0] = other と同じ操作です。
+      digits.insert(i2, x)
+      result = [digits.to_i, i1, i2] if digits.to_i < result.first
+    end
+  end
+  result
+end
