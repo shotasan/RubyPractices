@@ -344,3 +344,29 @@ end
 def find_missing_letter(arr)
   ((arr.first..arr.last).to_a - arr).first
 end
+
+
+# No.30
+# Write a function that when given a URL as a string, parses out just the domain name and returns it as a string.
+# For example:
+# domain_name("http://github.com/carbonfive/raygun") == "github" 
+# domain_name("http://www.zombie-bites.com") == "zombie-bites"
+# domain_name("https://www.cnet.com") == "cnet"
+
+# Best_answer
+
+# module URIを使用
+# URI を扱うためのモジュールです。
+# parse(uri_str) -> object[permalink][rdoc]
+# 与えられた URI から該当する URI::Generic のサブクラスのインスタンスを生成して 返します。
+# class URI::Generic
+# すべての URI クラスの基底クラスです。
+# host -> String | nil[permalink][rdoc]
+# 自身の host を文字列で返します。設定されていない場合は nil を返します。
+
+# URIモジュールを使用。parseメソッドでGenericクラスのオブジェクトを作成
+# Genericクラスのインスタンスメソッドhostを使用して//以降のURLを取得
+# split(.)で分割し必要な前半部分を取得する
+def domain_name(url)
+  URI.parse(url).host.split('.').last(2)[0]
+end
