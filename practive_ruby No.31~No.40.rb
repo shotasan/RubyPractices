@@ -55,3 +55,20 @@ end
 def alphabet_position(text)
   text.gsub(/[^a-z]/i, '').chars.map{ |c| c.downcase.ord - 96 }.join(' ')
 end
+
+
+# No.33
+# You have an array of numbers.
+# Your task is to sort ascending odd numbers but even numbers must be on their places.
+# Zero isn't an odd number and you don't need to move it. If you have an empty array, you need to return it.
+# Example
+# sort_array([5, 3, 2, 8, 1, 4]) == [1, 3, 2, 8, 5, 4]
+
+# Best_answer
+def sort_array(xs)
+  # 奇数だけをソートしたEnumeratorオブジェクトを作成する
+  odd = xs.select(&:odd?).sort.each
+  # next -> object 「次」のオブジェクトを返します。現在までの列挙状態に応じて「次」のオブジェクトを返し、列挙状態を1つ分進めます。
+  # mapを使い、奇数ならソートしたEnumeratorオブジェクトから順に取り出す。偶数ならそのまま。
+  xs.map{ |x| x.odd? ? odd.next : x }
+end
