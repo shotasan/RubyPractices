@@ -72,3 +72,38 @@ def sort_array(xs)
   # mapを使い、奇数ならソートしたEnumeratorオブジェクトから順に取り出す。偶数ならそのまま。
   xs.map{ |x| x.odd? ? odd.next : x }
 end
+
+
+# No.34
+# Write a function that takes a string of braces,and determines if the order of the braces is valid.
+# It should return true if the string is valid, and false if it's invalid.
+# All input strings will be nonempty, and will only consist of parentheses, brackets and curly braces: ()[]{}.
+# "(){}[]"   =>  True
+# "([{}])"   =>  True
+# "(}"       =>  False
+# "[(])"     =>  False
+# "[({})](]" =>  False
+
+# Best_answer
+BRACES = { "(" => ")", "[" => "]", "{" => "}" }
+# 括弧開きから括弧閉じの配列を作成し、括弧閉じが正しい順番で出現していれば、配列から要素を削除していきtrueを判定する
+def validBraces(braces)
+  # each_char -> Enumerator
+  # 文字列の各文字に対して繰り返します。
+  # each_with_object(obj) {|(*args), memo_obj| ... } -> object
+  # 与えられた任意のオブジェクトと要素をブロックに渡し繰り返し、最初に与えられたオブジェクトを返します。
+  braces.each_char.each_with_object([]) { |char, stack|
+    case char
+    # BRACESのキーなら配列stackの最後に値を入れる
+    # stackには閉じ括弧だけが入る
+    when *BRACES.keys
+      stack.push(BRACES[char])
+    # BRACESのvalue場合、stackの最後と等しく無ければfalseを返す
+    # 等しければstackの最後を削除することで開き括弧と閉じ括弧の関係を検証する
+    when *BRACES.values
+      return false unless stack.last == char
+      stack.pop
+    end
+    # 全て削除されればtrueを返す
+  }.empty?
+end
