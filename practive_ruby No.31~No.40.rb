@@ -145,3 +145,45 @@ end
 def bouncingBall(h, bounce, window)
   bounce < 0 || bounce >= 1 || h <= window || window < 0 ? -1 : bouncingBall(h * bounce, bounce, window) + 2
 end
+
+
+# No.36
+# Write a function toWeirdCase (weirdcase in Ruby) that accepts a string,
+# and returns the same string with all even indexed characters in each word upper cased,
+# and all odd indexed characters in each word lower cased.
+# The indexing just explained is zero based, so the zero-ith index is even, therefore that character should be upper cased.
+# The passed in string will only consist of alphabetical characters and spaces(' ').
+# Spaces will only be present if there are multiple words. Words will be separated by a single space(' ').
+# weirdcase( "String" )#=> returns "StRiNg"
+# weirdcase( "Weird string case" );#=> returns "WeIrD StRiNg CaSe"
+
+# My_answer
+def weirdcase string
+  result = []
+  string.split(" ").each do |string|
+    count = 0
+    string.chars.each do |str|
+      if str == " "
+        result << str
+      elsif
+        count.even?
+        result << str.upcase
+        count += 1
+      else
+        result << str.downcase
+        count += 1
+      end
+    end
+    result << " "
+  end
+  result.join.chop
+end
+
+# Best_answer
+def weirdcase(string)
+  string.split(' ').map do |word|
+    word.split('').each_with_index.map do |char, i|
+      i % 2 == 0 ? char.upcase : char.downcase
+    end.join('')
+  end.join(' ')
+end
