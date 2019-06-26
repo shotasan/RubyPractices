@@ -187,3 +187,18 @@ def weirdcase(string)
     end.join('')
   end.join(' ')
 end
+
+
+# No.37
+# Given a number, return a string with dash'-'marks before and after each odd integer, but do not begin or end the string with a dash mark.
+# Ex:
+# dashatize(274) -> '2-7-4'
+# dashatize(6815) -> '68-1-5'
+
+# Best_answer
+def dashatize(num)
+  # scan(pattern) -> [String] | [[String]]
+  # self に対して pattern を繰り返しマッチし、 マッチした部分文字列の配列を返します。
+  # pattern が正規表現で括弧を含む場合は、 括弧で括られたパターンにマッチした部分文字列の配列の配列を返します。
+  num ? num.to_s.scan(/[02468]+|[13579]/).join("-") : "nil"
+end
