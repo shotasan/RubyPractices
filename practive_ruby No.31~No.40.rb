@@ -202,3 +202,32 @@ def dashatize(num)
   # pattern が正規表現で括弧を含む場合は、 括弧で括られたパターンにマッチした部分文字列の配列の配列を返します。
   num ? num.to_s.scan(/[02468]+|[13579]/).join("-") : "nil"
 end
+
+
+# No.38
+# The input is a string str of digits.
+# Cut the string into chunks (a chunk here is a substring of the initial string) of size sz (ignore the last chunk if its size is less than sz).
+# If a chunk represents an integer such as the sum of the cubes of its digits is divisible by 2,
+# reverse that chunk; otherwise rotate it to the left by one position. Put together these modified chunks and return the result as a string.
+# revrot("123456987654", 6) --> "234561876549"
+# revrot("123456987653", 6) --> "234561356789"
+# revrot("66443875", 4) --> "44668753"
+# revrot("66443875", 8) --> "64438756"
+# revrot("664438769", 8) --> "67834466"
+# revrot("123456779", 8) --> "23456771"
+# revrot("", 8) --> ""
+# revrot("123456779", 0) --> "" 
+# revrot("563000655734469485", 4) --> "0365065073456944"
+
+# Best_answer
+def revrot(str, sz)
+  return '' if sz <= 0
+  # 文字数を指定して、文字列を分割する
+  chunks = str.scan(/.{#{sz}}/)
+  # 分割した文字列ごとに各数値の３乗の合計を計算し、偶数か奇数を判定する
+  chunks.map do |chunk|
+    digits = chunk.chars
+    sum = digits.map {|x| x.to_i ** 3 }.inject(:+)
+    sum.even? ? digits.reverse : digits.rotate
+  end.join
+end
