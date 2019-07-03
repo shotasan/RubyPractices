@@ -45,6 +45,39 @@ def sum_consecutives(s)
   # [[1, [1]], [4, [4, 4, 4]], [0, [0]], [4, [4]], [3, [3, 3]], [1, [1]]]
   # .map(&:last)で上記配列の最後の要素（配列部分）を一つずつ取り出す。
   # .map {|group| group.reduce(:+)}で取り出した配列の合計値を返す。
-  
+
   s.chunk {|n| n}.map(&:last).map {|group| group.reduce(:+)}
+end
+
+
+# No.43
+# There is a queue for the self-checkout tills at the supermarket.
+# Your task is write a function to calculate the total time required for all the customers to check out!
+# input
+# customers: an array of positive integers representing the queue.
+# Each integer represents a customer, and its value is the amount of time they require to check out.
+# n: a positive integer, the number of checkout tills.
+# output
+# The function should return an integer, the total time required.
+# queue_time([5,3,4], 1)
+# # should return 12
+# # because when n=1, the total time is just the sum of the times
+# queue_time([10,2,3,3], 2)
+# # should return 10
+# # because here n=2 and the 2nd, 3rd, and 4th people in the 
+# # queue finish before the 1st person has finished.
+# queue_time([2,3,10], 2)
+# # should return 12
+
+# Best_answer
+def queue_time(customers, n)
+  # n個の要素をもつ配列を作成する
+  arr = Array.new(n, 0)
+  # 配列の要素で最小の所にcustomerを入れていき、customersを全て格納した配列を作成する。
+  # arr.index(arr.min)で配列内で最小の要素のインデックスを取得する
+  customers.each do |customer|
+     arr[arr.index(arr.min)] += customer 
+  end
+  # 作成した配列の最大値（最大作業時間）を取得する
+  arr.max
 end
