@@ -81,3 +81,73 @@ def queue_time(customers, n)
   # 作成した配列の最大値（最大作業時間）を取得する
   arr.max
 end
+
+
+# No.44
+# For building the encrypted string:
+# Take every 2nd char from the string, then the other chars, that are not every 2nd char, and concat them as new String.
+# Do this n times!
+# Examples:
+# "This is a test!", 1 -> "hsi  etTi sats!"
+# "This is a test!", 2 -> "hsi  etTi sats!" -> "s eT ashi tist!"
+# For both methods:
+# If the input-string is null or empty return exactly this value!
+# If n is <= 0 then return the input text.
+
+# My_answer(False)
+def encrypt(text, n)
+  return text if n <= 0
+
+  if n == 0
+    return encrypted_text
+  else
+    n -= 1
+    encrypted_text = text.chars.partition.with_index{ |char, ind| ind.odd? }.join
+    encrypt(encrypted_text, n)
+  end
+end
+
+def decrypt(encrypted_text, n)
+  return encrypted_text if n <= 0
+
+  if n == 0
+    return text
+  else
+    n -= 1
+    text = encrypted_text.split(/(?=[A-Z])/).each{ |str| [str.chars] }
+    byebug
+    encrypted_text =text[1].chars.zip(text[0].chars).join
+    decrypt(encrypted_text, n)
+  end
+end
+
+# Best_answer
+def encrypt(text, n)
+  return text if n <= 0
+  # scan(pattern) -> [String] | [[String]]
+  # self に対して pattern を繰り返しマッチし、 マッチした部分文字列の配列を返します。
+  # pattern が正規表現で括弧を含む場合は、 括弧で括られたパターンにマッチした部分文字列の配列の配列を返します。
+  # transpose -> Array
+  # 自身を行列と見立てて、行列の転置(行と列の入れ換え)を行いま す。転置した配列を生成して返します。空の配列に対しては空の配列を生 成して返します。
+  # それ以外の一次元の配列に対しては、例外 TypeError が発生します。各要素のサイズが不揃いな配列に対して は、例外 IndexError が発生します。
+
+  # scanメソッドで2文字づつの配列を作成し、transposeメソッドで1文字飛ばしの配列を作成する。
+
+  encrypt(text.scan(/(.)(.)?/).transpose.reverse.join, n-1)
+end
+
+def decrypt(text, n)
+  return text if n <= 0
+  # sにはtextの長さを半分にした数値が入る
+  c, s = text.chars, text.size/2
+  # drop(n) -> Array
+  # Enumerable オブジェクトの先頭の n 要素を捨てて、 残りの要素を配列として返します。
+  # take(n) -> Array
+  # Enumerable オブジェクトの先頭から n 要素を配列として返します。
+
+  # c.drop(s)でtextを半分に分割した後半部分を取得する
+  # c.take sでtextを半分に分割した前半部分を取得する
+
+  decrypt(c.drop(s).zip(c.take s).join, n-1)
+end
+
