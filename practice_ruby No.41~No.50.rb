@@ -151,3 +151,30 @@ def decrypt(text, n)
   decrypt(c.drop(s).zip(c.take s).join, n-1)
 end
 
+
+# No.45
+# Write a function that accepts an array of 10 integers (between 0 and 9), that returns a string of those numbers in the form of a phone number.
+# Example:
+# createPhoneNumber(Array[1, 2, 3, 4, 5, 6, 7, 8, 9, 0]) # => returns "(123) 456-7890"
+# The returned format must be correct in order to complete this challenge. 
+# Don't forget the space after the closing parenthesis!
+
+# My_answer
+def createPhoneNumber(numbers)
+  result = []
+  while numbers.count > 4
+    result << numbers.take(3)
+    numbers = numbers.drop(3)
+  end
+  result << numbers
+  return "(#{ result[0].join }) #{ result[1].join }-#{ result[2].join }"
+end
+
+# Best_answer
+# self % args -> String
+# printf と同じ規則に従って args をフォーマットします。
+# 整数を表す指示子: d
+# numbersの要素が一つずつ%dに代入される
+def createPhoneNumber(numbers)
+  "(%d%d%d) %d%d%d-%d%d%d%d" % numbers
+end
