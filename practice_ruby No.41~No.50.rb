@@ -228,3 +228,29 @@ class Abbreviator
     end
   end
 end
+
+
+# No.46
+# You will be given a number and you will need to return it as a string in Expanded Form. For example:
+# expanded_form(12); # Should return '10 + 2'
+# expanded_form(42); # Should return '40 + 2'
+# expanded_form(70304); # Should return '70000 + 300 + 4'
+# NOTE: All numbers will be whole numbers greater than 0.
+
+# My_answer
+def expanded_form(num)
+  num.digits.map.with_index do |int, ind|
+    int * ("1" + ("0" * ind)).to_i if int > 0
+  end.compact.reverse.join(" + ")
+end
+
+# Best_answer
+def expanded_form(num)
+  num.to_s
+     .chars
+     .reverse
+     .map.with_index { |d, idx| d.to_i * 10**idx }
+     .reject(&:zero?)
+     .reverse
+     .join (' + ')
+end
