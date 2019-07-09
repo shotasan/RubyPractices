@@ -254,3 +254,35 @@ def expanded_form(num)
      .reverse
      .join (' + ')
 end
+
+
+# No.47
+# Given a string of words, you need to find the highest scoring word.
+# Each letter of a word scores points according to its position in the alphabet: a = 1, b = 2, c = 3 etc.
+# You need to return the highest scoring word as a string.
+# If two words score the same, return the word that appears earliest in the original string.
+# All letters will be lowercase and all inputs will be valid.
+
+# My_answer
+def high(x)
+  x.split[high_word_position(x)]
+end
+
+def high_word_position(x)
+  x.split.map.with_index do |word, idx|
+    [sum_of_alphabet_positon(word), idx]
+  end.max.last
+end
+
+def sum_of_alphabet_positon(array)
+  array.chars.map{ |chr| chr.ord - 96 }.sum
+end
+
+# Best_answer
+def high(x)
+  x.split.max_by { |w| score_word(w) }
+end
+
+def score_word(word)
+  word.chars.inject(0) { |sum, ch| sum + (ch.ord - 96) }
+end
