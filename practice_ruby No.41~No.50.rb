@@ -344,3 +344,25 @@ def isPrime(num)
   return false if num < 2
   (2...num).to_a.select{|x| num%x == 0}.compact.empty?
 end
+
+
+# No.50
+# Write simple .camelCase method (camel_case function in PHP, CamelCase in C# or camelCase in Java) for strings.
+# All words must have their first letter capitalized without spaces.
+# For instance:
+# 'hello case'.camelcase => HelloCase
+# 'camel case word'.camelcase => CamelCaseWord
+
+# My_answer
+class String
+  def camelcase
+    self.split.map(&:capitalize).join
+  end
+end
+
+# Best_answer
+class String
+  def camelcase
+    self.split.map(&:capitalize).join
+  end
+end
