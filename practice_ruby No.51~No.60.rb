@@ -48,3 +48,21 @@ end
 def solution(string)
   string.gsub /([A-Z])/, ' \1'
 end
+
+
+# No.53
+# The main idea is to count all the occuring characters(UTF-8) in string.
+# If you have string like this aba then the result should be { 'a': 2, 'b': 1 }
+# What if the string is empty ? Then the result should be empty object literal { }
+
+# My_answer
+def count_chars(s)
+  table = Hash.new(0)
+  s.scan(/./){ |chr| table[chr] += 1 }
+  return table
+end
+
+# Best_answer
+def count_chars(s)
+  s.chars.uniq.each_with_object({}) { |c, h| h[c] = s.count(c) }
+end
