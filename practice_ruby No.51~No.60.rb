@@ -66,3 +66,23 @@ end
 def count_chars(s)
   s.chars.uniq.each_with_object({}) { |c, h| h[c] = s.count(c) }
 end
+
+
+# No.54
+# There is an array with some numbers. All numbers are equal except for one. Try to find it!
+# find_uniq([ 1, 1, 1, 2, 1, 1 ]) == 2
+# find_uniq([ 0, 0, 0.55, 0, 0 ]) == 0.55
+# It’s guaranteed that array contains more than 3 numbers.
+# The tests contain some very huge arrays, so think about performance.
+
+# My_answer
+def find_uniq(arr)
+  arr.uniq.each do |num|
+    return num unless arr.count(num) > 2
+  end
+end
+
+# Best_answer
+def find_uniq(arr)
+  arr.uniq.each { |x| return x if arr.count(x) == 1 }
+end
