@@ -86,3 +86,39 @@ end
 def find_uniq(arr)
   arr.uniq.each { |x| return x if arr.count(x) == 1 }
 end
+
+
+# No.55
+# Given: an array containing hashes of names
+# Return: a string formatted as a list of names separated by commas except for the last two names, which should be separated by an ampersand.
+# Example:
+# list([ {name: 'Bart'}, {name: 'Lisa'}, {name: 'Maggie'} ])
+# # returns 'Bart, Lisa & Maggie'
+# list([ {name: 'Bart'}, {name: 'Lisa'} ])
+# # returns 'Bart & Lisa'
+# list([ {name: 'Bart'} ])
+# # returns 'Bart'
+# list([])
+# # returns ''
+
+# My_answer
+def list names
+  name_array = names.map { |hash| hash[:name] }
+  case name_array.size
+  when 0
+    return ''
+  when 1
+    return name_array.first
+  else
+    last_name = name_array.pop
+    name_array.join(', ') + " & #{last_name}"
+  end
+end
+
+# Best_answer
+def list names
+  names = names.map { |name| name[:name] }
+  last_name = names.pop
+  return last_name.to_s if names.empty?
+  "#{names.join(', ')} & #{last_name}"
+end
