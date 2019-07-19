@@ -122,3 +122,23 @@ def list names
   return last_name.to_s if names.empty?
   "#{names.join(', ')} & #{last_name}"
 end
+
+
+# No.56
+# for i from 1 to n, do i % m and return the sum
+# f(n=10, m=5) // returns 20 (1+2+3+4+0 + 1+2+3+4+0)
+# You'll need to get a little clever with performance, since n can be a very large number
+
+# My_answer(false)
+def f(n,m)
+  array = [*1..n]
+  array.inject(0) do |result, int|
+    result += int % m
+  end
+end
+
+# Best_answer
+def f(n, m)
+  x, y = n.divmod(m)
+  x * m * (m - 1) / 2 + y * (y + 1) / 2
+end
