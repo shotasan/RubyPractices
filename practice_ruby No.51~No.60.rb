@@ -164,7 +164,7 @@ end
 def dig_pow(n, p)
   numbers = n.digits.reverse
   sum_of_numbers = numbers.map.with_index(p){ |int, idx| int**idx }.sum
-
+  
   if sum_of_numbers % n == 0
     sum_of_numbers / n
   else
@@ -176,4 +176,32 @@ end
 def dig_pow(n, p)
   total = n.to_s.split('').map.with_index{|d, i| d.to_i ** (p+i)}.reduce(:+)
   total % n == 0 ? (total / n) : -1
+end
+
+
+# No.58
+# The goal of this exercise is to convert a string to a new string where each character in the new string is "("
+# if that character appears only once in the original string, or ")" 
+# if that character appears more than once in the original string.
+# Ignore capitalization when determining if a character is a duplicate.
+# Examples
+# "din"      =>  "((("
+# "recede"   =>  "()()()"
+# "Success"  =>  ")())())"
+# "(( @"     =>  "))((" 
+
+# My_answer
+def duplicate_encode(word)
+  word.downcase.chars.map do |chr|
+    word.downcase.count(chr) > 1 ? ")" : "("
+  end.join
+end
+
+# Best_answer
+def duplicate_encode(word)
+  word
+    .downcase
+    .chars
+    .map { |char| word.downcase.count(char) > 1 ? letter = ')' : letter = '(' }
+    .join
 end
