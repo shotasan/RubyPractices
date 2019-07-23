@@ -205,3 +205,20 @@ def duplicate_encode(word)
     .map { |char| word.downcase.count(char) > 1 ? letter = ')' : letter = '(' }
     .join
 end
+
+
+# No.59
+# Write a function that takes an integer as input,
+# and returns the number of bits that are equal to one in the binary representation of that number.
+# You can guarantee that input is non-negative.
+# Example: The binary representation of 1234 is 10011010010, so the function should return 5 in this case
+
+# My_answer
+def count_bits(n)
+  n.to_s(2).count('1')
+end
+
+# Best_answer
+def count_bits(n)
+  n.to_s(2).count "1"
+end
