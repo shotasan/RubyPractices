@@ -222,3 +222,41 @@ end
 def count_bits(n)
   n.to_s(2).count "1"
 end
+
+
+# No.60
+# Create a function taking a positive integer as its parameter and returning a string containing the Roman Numeral representation of that integer.
+# Modern Roman numerals are written by expressing each digit separately starting with the left most digit and skipping any digit with a value of zero.
+# In Roman numerals 1990 is rendered: 1000=M, 900=CM, 90=XC; resulting in MCMXC.
+#                   2008 is written as 2000=MM, 8=VIII; or MMVIII.
+#                   1666 uses each Roman symbol in descending order: MDCLXVI.
+# Example:
+# solution(1000) # should return 'M'
+# Help:
+# Symbol    Value
+# I          1
+# V          5
+# X          10
+# L          50
+# C          100
+# D          500
+# M          1,000
+# Remember that there can't be more than 3 identical symbols in a row.
+
+# My_answer(false)
+def solution(number)
+  roman_numeral = { 1 => 'I', 4 => 'IV', 5=> 'V', 6 => 'VI', 10=> 'X', 50=> 'L', 100=> 'C', 500=> 'D', 1000=> 'M' }
+  numbers = number.digits.map.with_index{ |int, idx| int * 10**idx }
+  numbers.map{ |number| roman_numeral[number] }.reverse.join
+end
+
+# Best_answer
+NUMERALS = { M: 1000, CM: 900, D: 500, CD: 400, C: 100, XC: 90,
+               L: 50, XL: 40, X: 10, IX: 9, V: 5, IV: 4, I: 1 }
+
+# numberがNUMERALSのvalue以上になった際に、keyを文字列として返す。
+# numberからvalueを引いた数で再帰処理を繰り返す
+def solution(number)
+  return '' if number <= 0
+  NUMERALS.each do |key, val| { return key.to_s + solution(number - val) if number >= val }
+end
