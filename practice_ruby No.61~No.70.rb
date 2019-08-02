@@ -135,3 +135,44 @@ def whoIsNext(names, r)
   end
   names[r]
 end
+
+
+# No.66
+# Divisors of 42 are : 1, 2, 3, 6, 7, 14, 21, 42. These divisors squared are: 1, 4, 9, 36, 49, 196, 441, 1764. 
+# The sum of the squared divisors is 2500 which is 50 * 50, a square!
+# Given two integers m, n (1 <= m <= n) we want to find all integers between m and n whose sum of squared divisors is itself a square. 42 is such a number.
+# The result will be an array of arrays or of tuples (in C an array of Pair) or a string, each subarray having two elements,
+# first the number whose squared divisors is a square and then the sum of the squared divisors.
+# #Examples:
+# list_squared(1, 250) --> [[1, 1], [42, 2500], [246, 84100]]
+# list_squared(42, 250) --> [[42, 2500], [246, 84100]]
+# The form of the examples may change according to the language, see Example Tests: for more details.
+
+# My_answer
+def list_squared(m, n)
+  divisors_itself_square(m, n).map{ |result| [result[1], divisors_sum(result[1])]}
+end
+
+def divisors_itself_square(m, n)
+  (m..n).map.with_index(m) do |int, idx|
+    [Math.sqrt(divisors_sum(int)), idx]
+  end.select{ |num| num[0] % 1 == 0 }
+end
+
+def divisors_sum(n)
+  n.prime_division.inject([1]) do |ary, (p, e)|
+    (0..e).map{ |e1| p ** e1 }.product(ary).map{ |a, b| a * b }
+  end.map{ |i| i * i }.sum
+end
+
+# Best_answer
+# compact -> Array
+# compact は自身から nil を取り除いた配列を生成して返します。 compact! は自身から破壊的に nil を取り除き、変更が 行われた場合は self を、そうでなければ nil を返します。
+
+def list_squared(m, n)
+(m..n).map do |num|
+  divisors = (1..num).select {|i| num % i == 0}
+  sum_divisors_sq = divisors.map {|i| i ** 2}.inject(:+)
+  [num, sum_divisors_sq] if Math.sqrt(sum_divisors_sq) % 1 == 0
+  end.compact
+end
