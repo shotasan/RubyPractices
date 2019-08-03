@@ -176,3 +176,31 @@ def list_squared(m, n)
   [num, sum_divisors_sq] if Math.sqrt(sum_divisors_sq) % 1 == 0
   end.compact
 end
+
+
+# No.67
+# Write a program that will calculate the number of trailing zeros in a factorial of a given number.
+# N! = 1 * 2 * 3 * ... * N
+# Be careful 1000! has 2568 digits...
+# Examples
+# zeros(6) = 1
+# # 6! = 1 * 2 * 3 * 4 * 5 * 6 = 720 --> 1 trailing zero
+# zeros(12) = 2
+# # 12! = 479001600 --> 2 trailing zeros
+# Hint: You're not meant to calculate the factorial. Find another way to find the number of zeros.
+
+# My_answer
+def zeros(n)
+  count_zero = 0
+  i = 1
+  while n / (5**i) > 0
+    count_zero += n / (5**i)
+    i += 1
+  end
+  count_zero
+end
+
+# Best_answer
+def zeros(n)
+  n < 5 ? 0 : (n / 5) + zeros(n / 5)
+end
