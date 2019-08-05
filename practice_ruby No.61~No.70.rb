@@ -240,3 +240,39 @@ def gap(g, m, n)
 
   return nil
 end
+
+
+# No.69
+# The rgb() method is incomplete. Complete the method so that passing in RGB decimal values will result in a hexadecimal representation being returned.
+# The valid decimal values for RGB are 0 - 255. Any (r,g,b) argument values that fall out of that range should be rounded to the closest valid value.
+# The following are examples of expected output values:
+# rgb(255, 255, 255) # returns FFFFFF
+# rgb(255, 255, 300) # returns FFFFFF
+# rgb(0,0,0) # returns 000000
+# rgb(148, 0, 211) # returns 9400D3
+
+# My_answer
+def rgb(r, g, b)  
+  [r, g, b].map do |i|
+    i = 0 if i.negative?
+    i = 255 if i > 255
+    i.to_s(16).rjust(2, "0")
+  end.join.upcase
+end
+
+# Best_answer
+# self % args -> String
+# printf と同じ規則に従って args をフォーマットします。
+
+# args
+# [i,255].minで255より大きい数字を排除する
+# [[i,255].min, 0]でマイナスを０に変換する
+# [[i,255].min, 0].maxで目的の数値を得る
+
+# self
+# %.2で2桁に限定する
+# Xで大文字の16進数にする
+
+def rgb(r, g, b)
+  "%.2X%.2X%.2X" % [r,g,b].map{|i| [[i,255].min,0].max}
+end
