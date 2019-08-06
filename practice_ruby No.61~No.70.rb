@@ -276,3 +276,58 @@ end
 def rgb(r, g, b)
   "%.2X%.2X%.2X" % [r,g,b].map{|i| [[i,255].min,0].max}
 end
+
+
+# No.70
+# A friend of mine takes a sequence of numbers from 1 to n (where n > 0).
+# Within that sequence, he chooses two numbers, a and b.
+# He says that the product of a and b should be equal to the sum of all numbers in the sequence, excluding a and b.
+# Given a number n, could you tell me the numbers he excluded from the sequence?
+# The function takes the parameter: n (n is always strictly greater than 0) and returns an array or a string (depending on the language) of the form:
+# [(a, b), ...] or [[a, b], ...] or {{a, b}, ...} or or [{a, b}, ...]
+# with all (a, b) which are the possible removed numbers in the sequence 1 to n.
+# [(a, b), ...] or [[a, b], ...] or {{a, b}, ...} or ...will be sorted in increasing order of the "a".
+# It happens that there are several possible (a, b).
+# The function returns an empty array (or an empty string) if no possible numbers are found which will prove that my friend has not told the truth! (Go: in this case return nil).
+# (See examples of returns for each language in "RUN SAMPLE TESTS")
+# Examples:
+# removeNb(26) should return [[15, 21], [21, 15]]
+# removNb(100) should return []
+
+# My_answer(false: TimeOut)
+def removNb(n)
+  sum_of_sequence = (1..n).inject(:+)
+  combinations = [*1..n].combination(2).to_a
+  combinations.each do |a, b|
+    return [[a, b], [b, a]] if sum_of_sequence == (a * b) + a + b 
+  end
+  []
+end
+
+# Best_answer
+# generate a range from 1 to n
+# use an iterator/each over the range we generated to get our first number
+# nest an iterator over range move the number up to get every possible number of pairs
+# while inside second iterator, we are going to remove the two numbers from the array
+# sum the resulting number test for equality under two numbers
+# append to some sort of results array
+
+# total = (n*n + n) /2
+# (total - a - b) = ab
+# (total - a) = ab + b = b(a+1) 
+# ((total - a) / (a+1)) = b
+
+def removNb(n)
+  res = []
+  total = (n*n + n) / 2
+  range = (1..n)
+  
+  (1..n).each do |a|
+    b = ((total - a) / (a * 1.0 + 1.0))
+    if b == b.to_i && b <= n
+      res.push([a,b.to_i])
+    end
+  end
+
+  return res
+end
