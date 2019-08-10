@@ -116,3 +116,40 @@ class Dictionary
     d[m][n]
   end
 end
+
+
+# No.74
+# Define a method that accepts 2 strings as parameters.
+# The method returns the first string sorted by the second.
+# sort_string('foos', 'of')
+# # => 'oofs'
+# sort_string('string', 'gnirts')
+# # => 'gnirts'
+# sort_string('banana', 'abn')
+# # => 'aaabnn'
+# To elaborate, the second string defines the ordering.
+# It is possible that in the second string characters repeat, so you should remove repeating characters, leaving only the first occurrence.
+# Any character in the first string that does not appear in the second string should be sorted to the end of the result in original order.
+
+# My_answer
+def sort_string(str, ordering)
+  order = ordering.chars.uniq
+  str = str.chars
+  result = []
+
+  order.map do |ord|
+    str.map do |char|
+      if char == ord
+        result << char
+      end
+    end 
+  end
+
+  (result + (str - result)).join
+end
+
+# Best_answer
+def sort_string(str, ordering)
+  # orderingに無い文字はordering.sizeの値で判定される
+  str.chars.sort_by { |item| ordering.index(item) || ordering.size }.join
+end
