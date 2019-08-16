@@ -234,6 +234,42 @@ class PaginationHelper
   
   def page_index(index)
    return -1 unless (0...item_count).include? index
-   page = index / per_page
+   page = (index / per_page)
   end
+end
+
+
+# No.76
+# Write a function called LCS that accepts two sequences and returns the longest subsequence common to the passed in sequences.
+# Subsequence
+# A subsequence is different from a substring. The terms of a subsequence need not be consecutive terms of the original sequence.
+# Example subsequence
+# Subsequences of "abc" = "a", "b", "c", "ab", "ac", "bc" and "abc".
+# LCS examples
+# lcs( "abcdef" , "abc" ) => returns "abc"
+# lcs( "abcdef" , "acf" ) => returns "acf"
+# lcs( "132535365" , "123456789" ) => returns "12356"
+# Notes
+# Both arguments will be strings
+# Return value must be a string
+# Return an empty string if there exists no common subsequence
+# Both arguments will have one or more characters (in JavaScript)
+# All tests will only have a single longest common subsequence. Don't worry about cases such as LCS( "1234", "3412" ),
+# which would have two possible longest common subsequences: "12" and "34".
+# Note that the Haskell variant will use randomized testing, but any longest common subsequence will be valid.
+# Note that the OCaml variant is using generic lists instead of strings, and will also have randomized tests (any longest common subsequence will be valid).
+# Tips
+# Wikipedia has an explanation of the two properties that can be used to solve the problem:
+
+# Best_answer
+# 二つの文字列ごとに生成できる組み合わせを全て調べ、共通する部分の内、もっとも長いものを返す。
+def subsequences(str)
+  # combination(n) {|c| block } -> Array
+  # サイズ n の組み合わせをすべて生成し、それを引数としてブロックを実行します。
+  # 得られる組み合わせの順序は保証されません。ブロックなしで呼び出されると、組み合わせ を生成する Enumerator オブジェクトを返します。
+  (1..str.length).map { |i| str.chars.combination(i).to_a.map(&:join) }.flatten(1)
+end
+
+def lcs(x, y)
+  (subsequences(x) & subsequences(y)).max { |s| s.length } || ""
 end
