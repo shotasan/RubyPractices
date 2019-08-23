@@ -310,3 +310,33 @@ def josephus_survivor(n, k)
   end
   survivors[0]
 end
+
+
+# No.78
+# The drawing shows 6 squares the sides of which have a length of 1, 1, 2, 3, 5, 8.
+# It's easy to see that the sum of the perimeters of these squares is : 4 * (1 + 1 + 2 + 3 + 5 + 8) = 4 * 20 = 80
+# Could you give the sum of the perimeters of all the squares in a rectangle when there are n + 1 squares disposed in the same manner as in the drawing:
+
+# My_answer
+def perimeter(n)
+  4 * fib.take(n + 1).sum
+end
+
+def fib
+  Enumerator.new do |y|
+    a = b = 1
+    loop do
+      y << a
+      a, b = b, a + b
+    end
+  end
+end
+
+# Best_answer
+def perimeter(n)
+  a = b = 1
+  (0...n).reduce(1) do |sum, _|
+    a, b = b, a + b
+    sum + a
+  end * 4
+end
