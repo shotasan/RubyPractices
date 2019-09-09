@@ -82,3 +82,22 @@ end
 def count_smileys(arr)
   arr.count { |e| e =~ /(:|;){1}(-|~)?(\)|D)/ }
 end
+
+
+# No.84
+# ROT13 is a simple letter substitution cipher that replaces a letter with the letter 13 letters after it in the alphabet.
+# ROT13 is an example of the Caesar cipher.
+# Create a function that takes a string and returns the string ciphered with Rot13.
+# If there are numbers or special characters included in the string, they should be returned as they are.
+# Only letters from the latin/english alphabet should be shifted, like in the original Rot13 "implementation".
+
+# Best_answer
+# tr(pattern, replace) -> String
+# pattern 文字列に含まれる文字を検索し、 それを replace 文字列の対応する文字に置き換えます。
+# pattern の形式は tr(1) と同じです。つまり、 `a-c' は a から c を意味し、"^0-9" のように 文字列の先頭が `^' の場合は指定文字以外が置換の対象になります。
+# replace に対しても `-' による範囲指定が可能です。 例えば String#upcase は tr を使って "foo".tr('a-z', 'A-Z') と書けます。
+# `-' は文字列の両端にない場合にだけ範囲指定の意味になります。 `^' も文字列の先頭にあるときにだけ否定の効果を発揮します。 また、`-', `^', `\' はバックスラッシュ (`\') によりエスケープできます。
+# replace の範囲が pattern の範囲よりも小さい場合は、 replace の最後の文字が無限に続くものとして扱われます。
+def rot13(string)
+  string.tr("A-Za-z", "N-ZA-Mn-za-m")
+end
