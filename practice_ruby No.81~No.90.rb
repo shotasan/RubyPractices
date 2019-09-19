@@ -196,3 +196,32 @@ def snail(array)
     array.shift + snail(array.transpose.reverse)
   end
 end
+
+
+# No.87
+# You have to create a function that takes a positive integer number and returns the next bigger number formed by the same digits:
+# 12 ==> 21
+# 513 ==> 531
+# 2017 ==> 2071
+# If no bigger number can be composed using those digits, return -1:
+# 9 ==> -1
+# 111 ==> -1
+# 531 ==> -1
+
+# My_answer(false:TimeOut)
+def next_bigger(n)
+  bigger_numbers = n.digits.permutation(n.to_s.length).to_a.sort.find{ |num| n < num.join.to_i }
+
+  bigger_numbers ? bigger_numbers.join.to_i : -1
+end
+
+# Best_answer
+def next_bigger n
+  max = maxed n
+  (n+1..max).each { |i| return i if max == maxed(i) }
+  -1
+end
+
+def maxed n
+  n.to_s.split('').sort.reverse.join.to_i
+end
