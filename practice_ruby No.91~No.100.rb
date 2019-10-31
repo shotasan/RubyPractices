@@ -125,3 +125,48 @@ end
 def first_non_repeating_letter(s) 
   s.chars.find {|i| s.downcase.count(i)==1 || s.upcase.count(i)==1} || ""
 end
+
+
+# No.95
+# Description:
+# Build Tower
+# Build Tower by the following given argument:
+# number of floors (integer and always greater than 0).
+# Tower block is represented as *
+# Ruby: returns an Array;
+# for example, a tower of 3 floors looks like below
+# [
+#   '  *  ', 
+#   ' *** ', 
+#   '*****'
+# ]
+# and a tower of 6 floors looks like below
+# [
+#   '     *     ', 
+#   '    ***    ', 
+#   '   *****   ', 
+#   '  *******  ', 
+#   ' ********* ', 
+#   '***********'
+# ]
+
+# My_answer
+def towerBuilder(n_floors)
+  layer = width = n_floors + (n_floors - 1)
+  result = []
+
+  while layer > 0
+    result.unshift(("*" * layer).center(width))
+    layer -= 2
+  end
+  result
+end
+
+# Best_answer
+def towerBuilder(n)
+  (1..n).map do |i|
+    space = ' ' * (n - i)
+    stars = '*' * (i * 2 - 1)
+    space + stars + space
+  end
+end
