@@ -235,3 +235,28 @@ end
 def contains_all_nine?(section)
   [1,2,3,4,5,6,7,8,9].to_set == section.to_set
 end
+
+
+# No.97
+# Description:
+# Complete the solution so that it strips all text that follows any of a set of comment markers passed in.
+# Any whitespace at the end of the line should also be stripped out.
+# Example:
+# Given an input string of:
+# apples, pears # and bananas
+# grapes
+# bananas !apples
+# The output expected would be:
+# apples, pears
+# grapes
+# bananas
+# The code would be called like so:
+# result = solution("apples, pears # and bananas\ngrapes\nbananas !apples", ["#", "!"])
+# result should == "apples, pears\ngrapes\nbananas"
+
+# Best_answer
+# str.gsub(pattern, replacement)
+# gsubメソッドの第1引数に正規表現のパターンpattern、第2引数に文字列replacementを指定すると、パターンにマッチする部分をすべてreplacementに置き換えた新しい文字列を返します。
+def solution(input, markers)
+  input.gsub(/\s+[#{markers.join}].*/, "")
+end
