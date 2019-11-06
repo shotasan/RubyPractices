@@ -260,3 +260,24 @@ end
 def solution(input, markers)
   input.gsub(/\s+[#{markers.join}].*/, "")
 end
+
+
+# No.98
+# Description:
+# In this kata you have to create all permutations of an input string and remove duplicates, if present.
+# This means, you have to shuffle all letters from the input in all possible orders.
+# Examples:
+# permutations('a'); # ['a']
+# permutations('ab'); # ['ab', 'ba']
+# permutations('aabb'); # ['aabb', 'abab', 'abba', 'baab', 'baba', 'bbaa']
+# The order of the permutations doesn't matter.
+
+# My_answer
+def permutations(string)
+  string.chars.permutation(string.length).map(&:join).uniq
+end
+
+# Best_answer
+def permutations(string)
+  string.chars.permutation.map(&:join).uniq
+end
