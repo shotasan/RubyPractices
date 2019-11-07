@@ -281,3 +281,25 @@ end
 def permutations(string)
   string.chars.permutation.map(&:join).uniq
 end
+
+
+# No.99
+# Description:
+# A format for expressing an ordered list of integers is to use a comma separated list of either
+# individual integers
+# or a range of integers denoted by the starting integer separated from the end integer in the range by a dash, '-'.
+# The range includes all integers in the interval including both endpoints. It is not considered a range unless it spans at least 3 numbers. For example ("12, 13, 15-17")
+# Complete the solution so that it takes a list of integers in increasing order and returns a correctly formatted string in the range format.
+# Example:
+# solution([-6, -3, -2, -1, 0, 1, 3, 4, 5, 7, 8, 9, 10, 11, 14, 15, 17, 18, 19, 20])
+# returns "-6,-3-1,3-5,7-11,14,15,17-20"
+
+# Best_answer
+def solution(list)
+  # chunk_while {|elt_before, elt_after| ... } -> Enumerator
+  # 要素を前から順にブロックで評価し、その結果によって要素をチャンクに分け た(グループ化した)要素を持つEnumerator を返します。
+  # 隣り合う値をブロックパラメータ elt_before、elt_after に渡し、ブロックの 評価値が偽になる所でチャンクを区切ります。
+  list.chunk_while { |n1, n2| n2 - n1 == 1 }
+      .map { |set| set.size > 2 ? "#{set.first}-#{set.last}" : set }
+      .join(',')
+end
