@@ -303,3 +303,41 @@ def solution(list)
       .map { |set| set.size > 2 ? "#{set.first}-#{set.last}" : set }
       .join(',')
 end
+
+
+# No.100
+# Description:
+# Complete the function/method (depending on the language) to return true/True when its argument is an array that has the same nesting structure as the first array.
+# For example:
+# # should return true
+# [ 1, 1, 1 ].same_structure_as( [ 2, 2, 2 ] )
+# [ 1, [ 1, 1 ] ].same_structure_as( [ 2, [ 2, 2 ] ] )
+# # should return false 
+# [ 1, [ 1, 1 ] ].same_structure_as( [ [ 2, 2 ], 2 ] )
+# [ 1, [ 1, 1 ] ].same_structure_as( [ [ 2 ], 2 ] )
+# # should return true
+# [ [ [ ], [ ] ] ].same_structure_as( [ [ [ ], [ ] ] ] ); 
+# # should return false
+# [ [ [ ], [ ] ] ].same_structure_as( [ [ 1, 1 ] ] )   
+
+# My_answer(false)
+class Array
+  def same_structure_as(array)
+    return false unless self.is_a?(Array) && array.is_a?(Array)
+    self.map(&:class) == array.map(&:class) && self.flatten.length == array.flatten.length
+  end
+end
+
+# Best_answer
+class Array
+  # 配列内の要素を全てnilに変換し、配列の構造だけを取り出す
+  # 多重配列に対しては再帰処理を行う
+  def structure
+    map { |it| it.is_a?(Array) ? it.structure : nil }
+  end
+  
+  def same_structure_as(arr)
+    return false unless arr.is_a?(Array)
+    structure == arr.structure
+  end
+end
