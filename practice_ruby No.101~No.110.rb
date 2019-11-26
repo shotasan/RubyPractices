@@ -67,3 +67,43 @@ def stockList(stock_list, categories)
 
   categories.map { |category| "(#{category} : #{quantities[category]})" }.join(" - ")
 end
+
+# No.102
+# Write a function that takes a positive integer and returns the next smaller positive integer containing the same digits.
+# For example:
+# next_smaller(21) == 12
+# next_smaller(531) == 513
+# next_smaller(2071) == 2017
+# Return -1 (for Haskell: return Nothing, for Rust: return None), when there is no smaller number that contains the same digits.
+# Also return -1 when the next smaller number with the same digits would require the leading digit to be zero.
+# next_smaller(9) == -1
+# next_smaller(135) == -1
+# next_smaller(1027) == -1  # 0721 is out since we don't write numbers with leading zeros
+# some tests will include very large numbers.
+# test data only employs positive integers.
+# The function you write for this challenge is the inverse of this kata: "Next bigger number with the same digits."
+
+# My_answer(false)
+def next_smaller(n)
+  result = n.digits.permutation.select { |p| p.join.to_i < n && p.first != 0 }
+  result.empty? ? -1 : result.last.join.to_i
+end
+
+# Best_answer
+def next_smaller(n)
+  digits = n.to_s.chars.map { |d| d.to_i }
+  return -1 if n.to_s.size == 1 || digits.sort.join == n.to_s
+  digits.reverse!
+  digits.each_with_index do |d, i|
+    if digits[i + 1] && digits[i + 1] > digits[i]
+      max = digits[0...i + 1].select { |a| a < digits[i + 1] }.sort.reverse.shift
+      arr = digits[0..i + 1].sort
+      arr.delete_at(arr.index(max))
+      arr << max
+      arr += digits[i + 2..-1]
+      smaller = arr.reverse.join.to_i
+      return -1 if smaller.to_s.size < digits.size
+      return smaller
+    end
+  end
+end
