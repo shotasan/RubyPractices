@@ -154,3 +154,19 @@ def mix(s1, s2)
   # 出現回数（文字列の長さ）、1or2、アルファベット順でソートする
   selection.sort_by { |x| [-x.size, x[0], x[-1]] }.join("/")
 end
+
+# No.104
+# Take an array and remove every second element out of that array. Always keep the first element and start removing with the next element.
+# Example:
+# my_arr = ['Keep', 'Remove', 'Keep', 'Remove', 'Keep', ...]
+# None of the arrays will be empty, so you don't have to worry about that!
+
+# My_answer
+def remove_every_other(arr)
+  arr.delete_if.with_index { |_, i| i.odd? }
+end
+
+# Best_answer
+def remove_every_other(arr)
+  arr.select.with_index { |_, idx| idx.even? }
+end
